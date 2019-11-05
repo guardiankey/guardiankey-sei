@@ -1,0 +1,47 @@
+diff -Naur sip/web/login.php sip-alterado/web/login.php
+--- sip/web/login.php	2019-08-08 11:43:31.000000000 -0300
++++ sip-alterado/web/login.php	2019-10-31 14:58:02.627349246 -0300
+@@ -3,6 +3,9 @@
+ 
+   require_once dirname(__FILE__).'/Sip.php';
+ 
++  /* Usado para integrar com o GuardianKey: inclue arquivo se existe, caso contrário define para não usar a integração */
++  if (( is_file('/etc/guardiankey/guardiankey.class.php') && require_once '/etc/guardiankey/guardiankey.class.php' ) || define('ENABLE_GUARDIANKEY', false)){};
++
+ 	session_start();
+ 
+   /////////////////////////////////////////////////////////////////////////////
+@@ -174,6 +177,15 @@
+           $strPar .= '&infra_url=' . $_GET['infra_url'];
+         }
+ 
++        if(ENABLE_GUARDIANKEY) {
++           $GK = new guardiankey();
++           $GKRet = $GK->checkaccess($_POST['txtUsuario'],"",0);
++           $GKJSONReturn = @json_decode($GKRet,false);
++           if ($GKJSONReturn->response == 'BLOCK' ) {
++              $objInfraException->lancarValidacao(InfraLDAP::$MSG_USUARIO_SENHA_INVALIDA);
++           }
++        }
++
+         header('Location: ' . $strPaginaInicial . $strPar);
+         die;
+       }
+@@ -181,6 +193,10 @@
+ 
+       if (strpos($e->__toString(), InfraLDAP::$MSG_USUARIO_SENHA_INVALIDA)!==false) {
+         $_SESSION['SIP_NUM_FALHA_LOGIN'] = $_SESSION['SIP_NUM_FALHA_LOGIN'] + 1;
++        if(ENABLE_GUARDIANKEY && $GKJSONReturn->response != 'BLOCK' ) {
++            $GK = new guardiankey();
++            $GK->checkaccess($_POST['txtUsuario'],"",1);
++        }
+       }
+ 
+       PaginaLogin::getInstance()->processarExcecao($e);			
+@@ -579,4 +595,4 @@
+ PaginaLogin::getInstance()->montarAreaDebug();
+ PaginaLogin::getInstance()->fecharBody();
+ PaginaLogin::getInstance()->fecharHtml();
+-?>
+\ No newline at end of file
++?>
