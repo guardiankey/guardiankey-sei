@@ -13,7 +13,7 @@ Para funcionar, será necessário:
 - Instalar a edição gratuita do GuardianKey para SEI
 - Ajustar o SEI para se comunicar com o GuardianKey
 
-Os detalhes serão enviados por email juntamente com o link de download do GuardianKey. Preencha o formulário em [https://guardiankey.io/pt-br/sei](https://guardiankey.io/pt-br/sei) e faça a solicitação da licença gratuita para o SEI agora.
+Os detalhes serão enviados por email juntamente com o link de download do GuardianKey. Preencha o formulário em [https://guardiankey.io/pt-br/products/sei/](https://guardiankey.io/pt-br/products/sei/) e faça a solicitação da licença gratuita para o SEI agora.
 
 Em caso de dúvidas, entre em contato: contato@guardiankey.io
 
