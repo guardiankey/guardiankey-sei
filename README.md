@@ -6,7 +6,7 @@ O GuardianKey é uma solução para proteger sistemas contra acessos ilegítimos
 
 Este repositório possui instruções para a integração do SEI com o GuardianKey, tornando o SEI mais seguro. Há uma versão **gratuita** do GuardianKey que pode ser utilizada para este fim.
 
-No Webinar [https://youtube.com/xxx](https://youtube.com/xxx) são apresentadas algumas **vulnerabilidades do processo de autenticação no sistema SEI**, feita uma discussão sobre os problemas e motivado a utilização do GuardianKey.
+No Webinar [https://youtu.be/3auY98Q2GSc](https://youtu.be/3auY98Q2GSc) são apresentadas algumas **vulnerabilidades do processo de autenticação no sistema SEI**, feita uma discussão sobre os problemas e motivado a utilização do GuardianKey.
 
 Para funcionar, será necessário:
 
