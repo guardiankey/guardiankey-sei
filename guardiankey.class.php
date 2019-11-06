@@ -116,7 +116,7 @@ class guardiankey {
    function sendevent($username, $useremail="", $attempt = "0", $eventType = 'Authentication')
     {
        $GKconfig = $this->GKconfig;
-        $guardianKeyWS = $this->api_url+"/sendevent";
+        $guardianKeyWS = $this->api_url."/sendevent";
         $message = $this->create_message($username, $useremail, $attempt, $eventType);
         $tmpdata = new stdClass();
         $tmpdata->id = $GKconfig['authgroupid'];
@@ -124,6 +124,8 @@ class guardiankey {
         $data = $this->_json_encode($tmpdata);
 
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         curl_setopt($ch, CURLOPT_URL, $guardianKeyWS);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -142,7 +144,7 @@ class guardiankey {
     function checkaccess($username, $useremail="", $attempt = "0", $eventType = 'Authentication')
     {
         $GKconfig = $this->GKconfig;
-        $guardianKeyWS = $this->api_url+'/checkaccess';
+        $guardianKeyWS = $this->api_url.'/checkaccess';
         $message = $this->create_message($username, $useremail, $attempt, $eventType);
         $tmpdata = new stdClass();
         $tmpdata->id = $GKconfig['authgroupid'];
@@ -150,6 +152,8 @@ class guardiankey {
         $data = $this->_json_encode($tmpdata);
 
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 4);
         curl_setopt($ch, CURLOPT_URL, $guardianKeyWS);
@@ -187,7 +191,7 @@ class guardiankey {
      */
     function register($email, $notify_method = null, $notify_data_json = null)
     {
-        $guardianKeyWS = $this->api_url+'/register';
+        $guardianKeyWS = $this->api_url.'/register';
         // Create new Key
         $key = openssl_random_pseudo_bytes(32);
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(AES_256_CBC));
@@ -213,6 +217,8 @@ class guardiankey {
         }
         
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_URL, $guardianKeyWS);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -266,7 +272,7 @@ class guardiankey {
     function resolveEvent($eventId, $token, $eventResponse)
     {
         $GKconfig = $this->GKconfig;
-        $guardianKeyWS = $this->api_url+'/resolveevent';
+        $guardianKeyWS = $this->api_url.'/resolveevent';
         $tmpdata = new stdClass();
         $tmpdata->eventid = $eventId;
         $tmpdata->token = $token;
@@ -274,6 +280,8 @@ class guardiankey {
         $data = $this->_json_encode($tmpdata);
         
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         curl_setopt($ch, CURLOPT_URL, $guardianKeyWS);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -291,13 +299,15 @@ class guardiankey {
     function getEvent($eventId, $token)
     {
         $GKconfig = $this->GKconfig;
-        $guardianKeyWS = $this->api_url+'/getevent';
+        $guardianKeyWS = $this->api_url.'/getevent';
         $tmpdata = new stdClass();
         $tmpdata->eventid = $eventId;
         $tmpdata->token = $token;
         $data = $this->_json_encode($tmpdata);
         
         $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
         curl_setopt($ch, CURLOPT_URL, $guardianKeyWS);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
